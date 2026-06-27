@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="description" content="Servicii profesionale de climatizare și instalații termice în Cluj-Napoca. Igienizare aer condiționat, încărcare freon și mentenanță centrale.">
+  <meta name="theme-color" content="#0ea5e9">
+  <meta property="og:title" content="Clima & Termice Cluj | Csabi">
+  <meta property="og:description" content="Peste 10 ani experiență în igienizare A.C., completare freon, pompe de căldură și centrale termice în Cluj.">
+  <title>Clima & Termice Cluj | Csabi</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --primary: #0ea5e9;
+      --primary-dark: #0284c7;
+      --accent:  #f97316;
+      --ink:     #0f172a;
+      --ink-2:   #1e293b;
+      --gray:    #475569;
+      --gray-2:  #64748b;
+      --light:   #f8fafc;
+      --paper:   #ffffff;
+      --mobile-bar-h: 68px;
+      --line:    rgba(15,23,42,0.08);
+    }
+
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      color: var(--ink);
+      line-height: 1.6;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      background: var(--light);
+    }
+
+    /* ── LOADING SCREEN ────── */
+    .loader {
+      position: fixed; inset: 0; z-index: 9999;
+      background: var(--ink);
+      display: flex; align-items: center; justify-content: center;
+      transition: opacity 0.4s ease, visibility 0.4s ease;
+    }
+    .loader.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
+    .loader-mark {
+      width: 44px; height: 44px;
+      border: 3px solid rgba(255,255,255,0.1);
+      border-top-color: var(--accent);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ── ANIMATII ȘI PERFORMANȚĂ ── */
+    .reveal { 
+      opacity: 0; 
+      transform: translateY(20px); 
+      transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+      will-change: transform, opacity;
+    }
+    .reveal.is-visible { opacity: 1; transform: translateY(0); }
+    
+    .reveal-stagger.is-visible > * { animation: fadeUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+    .reveal-stagger.is-visible > *:nth-child(1) { animation-delay: 0s; }
+    .reveal-stagger.is-visible > *:nth-child(2) { animation-delay: 0.08s; }
+    .reveal-stagger.is-visible > *:nth-child(3) { animation-delay: 0.16s; }
+    .reveal-stagger.is-visible > *:nth-child(4) { animation-delay: 0.24s; }
+    
+    @keyframes fadeUp { 
+      from { opacity: 0; transform: translateY(15px); } 
+      to { opacity: 1; transform: translateY(0); } 
+    }
+    @keyframes heroIn {
+      0%   { opacity: 0; transform: translateY(25px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes floatPulse { 
+      0%, 100% { transform: scale(1); } 
+      50% { transform: scale(1.04); } 
+    }
+    @keyframes kenBurns {
+      0%   { transform: scale(1.0); }
+      100% { transform: scale(1.04); }
+    }
+
+    /* ── NAV ─────────────────────────────────────────────── */
+    .nav {
+      position: absolute; top: 0; left: 0; right: 0;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.5rem; z-index: 30;
+      animation: heroIn 0.8s 0.1s cubic-bezier(0.16, 1, 0.3, 1) both;
+    }
+    .nav-brand {
+      color: #fff; font-size: 1.1rem; font-weight: 800; text-decoration: none;
+      letter-spacing: 0.05em; text-transform: uppercase;
+    }
+    .nav-brand span { color: var(--accent); }
+    .nav-btn {
+      display: inline-flex; align-items: center; color: #fff;
+      font-size: 0.8rem; font-weight: 700; text-decoration: none;
+      background: rgba(255,255,255,0.1); backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px); border: 1px solid rgba(255,255,255,0.15);
+      padding: 0.5rem 1rem; border-radius: 4px;
+      letter-spacing: 0.05em; text-transform: uppercase; transition: background 0.2s;
+    }
+    .nav-btn:hover { background: rgba(255,255,255,0.2); }
+
+    /* ── HERO ────────────────────────────────────────────── */
+    .hero {
+      position: relative; min-height: 100vh; display: flex; flex-direction: column;
+      justify-content: center; align-items: center; text-align: center;
+      padding: 6rem 1.5rem; overflow: hidden; background: var(--ink);
+    }
+    .hero-bg {
+      position: absolute; inset: 0;
+      background-image: url('https://images.unsplash.com/photo-1581094288338-2314dddb7ece?auto=format&fit=crop&w=1200&q=80');
+      background-size: cover; background-position: center; z-index: 0;
+      animation: kenBurns 12s ease-in-out infinite alternate;
+    }
+    .hero-bg::after {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(180deg, rgba(15,23,42,0.88) 0%, rgba(15,23,42,0.65) 50%, rgba(15,23,42,0.92) 100%);
+    }
+    .hero-content {
+      position: relative; z-index: 1; max-width: 780px;
+      animation: heroIn 0.8s 0.2s cubic-bezier(0.16, 1, 0.3, 1) both;
+    }
+    .hero-eyebrow {
+      display: inline-block; color: var(--accent); font-size: 0.75rem; font-weight: 700;
+      letter-spacing: 0.25em; text-transform: uppercase; margin-bottom: 1.2rem;
+    }
+    .hero h1 {
+      font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 900; color: #fff;
+      line-height: 1.15; margin-bottom: 1.2rem; letter-spacing: -0.025em;
+    }
+    .hero-motto {
+      font-size: clamp(1rem, 2vw, 1.15rem); color: rgba(255,255,255,0.85);
+      margin-bottom: 2.5rem; max-width: 600px; margin-left: auto; margin-right: auto;
+    }
+    .hero-ctas { display: flex; flex-wrap: wrap; gap: 0.8rem; justify-content: center; }
+    
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      font-size: 0.85rem; font-weight: 700; padding: 0.95rem 2rem;
+      border-radius: 4px; text-decoration: none;
+      transition: transform 0.2s, background-color 0.2s, box-shadow 0.2s;
+      letter-spacing: 0.06em; text-transform: uppercase;
+    }
+    .btn:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(0,0,0,0.3); }
+    .btn-primary { background: var(--primary); color: #fff; }
+    .btn-primary:hover { background: var(--primary-dark); }
+    .btn-wa { background: #25D366; color: #fff; }
+    .btn-wa:hover { background: #20ba5a; }
+    .btn-outline { background: transparent; color: #fff; border: 1.5px solid rgba(255,255,255,0.3); }
+    .btn-outline:hover { background: rgba(255,255,255,0.1); border-color: #fff; }
+
+    /* ── SECTIONS GENERAL ────────────────────────────────── */
+    .section-head { text-align: center; margin-bottom: 4rem; max-width: 600px; margin-left: auto; margin-right: auto; }
+    .section-head .eyebrow { color: var(--primary); font-size: 0.75rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 0.5rem; display: block; }
+    .section-head h2 { font-size: clamp(1.8rem, 4vw, 2.4rem); font-weight: 800; color: var(--ink); letter-spacing: -0.02em; line-height: 1.2; }
+    .section-head p { color: var(--gray); margin-top: 0.5rem; font-size: 0.95rem; }
+
+    /* Despre */
+    .about { background: var(--paper); padding: 5.5rem 1.5rem; border-bottom: 1px solid var(--line); }
+    .about-inner { max-width: 720px; margin: 0 auto; text-align: center; }
+    .about-badge { display: inline-block; background: rgba(14,165,233,0.08); color: var(--primary); font-size: 0.8rem; font-weight: 700; padding: 0.4rem 1rem; border-radius: 20px; margin-bottom: 1.2rem; text-transform: uppercase; letter-spacing: 0.05em; }
+    .about-inner h2 { font-size: 1.6rem; font-weight: 800; color: var(--ink); margin-bottom: 1rem; letter-spacing: -0.01em; }
+    .about-text { color: var(--gray); font-size: 1rem; line-height: 1.75; }
+
+    /* Servicii */
+    .services { padding: 5.5rem 1.5rem; background: var(--light); }
+    .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; max-width: 1020px; margin: 0 auto; }
+    .svc-card { 
+      background: var(--paper); border: 1px solid var(--line); padding: 2.2rem; border-radius: 4px;
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s;
+    }
+    .svc-card:hover { transform: translateY(-4px); box-shadow: 0 12px 24px rgba(0,0,0,0.04); }
+    .svc-card h3 { font-size: 1.2rem; font-weight: 700; color: var(--ink); margin-bottom: 1rem; border-bottom: 2px solid rgba(14,165,233,0.1); padding-bottom: 0.5rem; }
+    .svc-list { list-style: none; }
+    .svc-list li { font-size: 0.9rem; color: var(--gray); margin-bottom: 0.6rem; position: relative; padding-left: 1.2rem; line-height: 1.5; }
+    .svc-list li::before { content: "✦"; color: var(--primary); font-weight: bold; position: absolute; left: 0; top: 0; font-size: 0.9rem; }
+
+    /* Avantaje */
+    .benefits { padding: 5.5rem 1.5rem; background: var(--paper); border-top: 1px solid var(--line); }
+    .benefits-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; max-width: 1020px; margin: 0 auto; }
+    .benefit-card { padding: 1.5rem; background: var(--light); border-radius: 4px; border-left: 3px solid var(--accent); }
+    .benefit-card h4 { font-size: 1.05rem; font-weight: 700; color: var(--ink); margin-bottom: 0.4rem; }
+    .benefit-card p { font-size: 0.88rem; color: var(--gray); line-height: 1.6; }
+
+    /* CTA */
+    .cta { background: var(--ink); padding: 5.5rem 1.5rem; text-align: center; position: relative; }
+    .cta h2 { color: #fff; font-size: clamp(1.8rem, 4vw, 2.4rem); font-weight: 800; margin-bottom: 0.8rem; letter-spacing: -0.02em; }
+    .cta-sub { color: rgba(255,255,255,0.75); margin-bottom: 2rem; max-width: 500px; margin-left: auto; margin-right: auto; font-size: 0.95rem; line-height: 1.6; }
+    
+    /* Footer */
+    footer { background: var(--ink-2); color: rgba(255,255,255,0.4); text-align: center; padding: 2.5rem 1.5rem; font-size: 0.8rem; border-top: 1px solid rgba(255,255,255,0.05); }
+    footer strong { color: #fff; font-size: 0.95rem; letter-spacing: 0.05em; }
+    footer a { color: rgba(255,255,255,0.6); text-decoration: none; }
+
+    /* Floating WhatsApp pentru Desktop */
+    .float-wa {
+      position: fixed; bottom: 2rem; right: 2rem; background: #25D366; color: #fff;
+      width: 56px; height: 56px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      text-decoration: none; box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3); z-index: 999;
+      animation: floatPulse 2s ease-in-out infinite;
+    }
+    .float-wa svg { width: 28px; height: 28px; fill: currentColor; }
+
+    /* ── STICKY BAR MOBIL ── */
+    .mobile-bar {
+      display: none; position: fixed; bottom: 0; left: 0; right: 0; z-index: 1000;
+      height: calc(var(--mobile-bar-h) + env(safe-area-inset-bottom));
+      background: rgba(255,255,255,0.96); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+      box-shadow: 0 -4px 20px rgba(0,0,0,0.08);
+      padding: 0.5rem 0.75rem calc(0.5rem + env(safe-area-inset-bottom));
+      gap: 0.5rem; border-top: 1px solid var(--line);
+    }
+    .mobile-bar a {
+      flex: 1; display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
+      border-radius: 4px; font-weight: 700; font-size: 0.82rem; text-decoration: none;
+      text-transform: uppercase; letter-spacing: 0.05em;
+    }
+    .mobile-bar .m-call { background: var(--white); color: var(--ink); border: 1.5px solid var(--ink); }
+    .mobile-bar .m-wa { background: #25D366; color: #fff; }
+    .mobile-bar svg { width: 16px; height: 16px; fill: currentColor; }
+
+    /* ── RESPONSIVE & MOBILE TOUCH OPTIMIZATIONS ── */
+    @media (max-width: 768px) {
+      .float-wa { display: none; }
+      .mobile-bar { display: flex; }
+      body { padding-bottom: calc(var(--mobile-bar-h) + env(safe-area-inset-bottom)); }
+      .hero { min-height: calc(100vh - var(--mobile-bar-h)); }
+      
+      .svc-card:hover, .btn:hover { transform: none !important; box-shadow: none !important; }
+    }
+    
+    @media (max-width: 480px) {
+      .services-grid { grid-template-columns: 1fr; }
+    }
+    
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="loader" id="loader"><div class="loader-mark"></div></div>
+
+<!-- Sticky Bar pentru mobil (Contact Rapid) -->
+<div class="mobile-bar">
+  <a href="tel:+40758552980" class="m-call">
+    <svg viewBox="0 0 24 24"><path d="M6.62 10.79a15.05 15.05 0 0 0 6.59 6.59l2.2-2.2a1 1 0 0 1 1.01-.24 11.4 11.4 0 0 0 3.58.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.49a1 1 0 0 1 1 1 11.4 11.4 0 0 0 .57 3.58 1 1 0 0 1-.24 1.02z"/></svg>
+    Sună Acum
+  </a>
+  <a href="https://wa.me/40758552980" class="m-wa" target="_blank" rel="noopener">
+    <svg viewBox="0 0 24 24"><path d="M17.6 6.32A8.86 8.86 0 0 0 12.05 4a8.94 8.94 0 0 0-7.74 13.4L3 21l3.7-1.27a8.9 8.9 0 0 0 5.36 1.82H12a8.94 8.94 0 0 0 5.6-15.23z"/></svg>
+    WhatsApp
+  </a>
+</div>
+
+<!-- Buton plutitor WhatsApp (Desktop) -->
+<a href="https://wa.me/40758552980" class="float-wa" aria-label="Contact WhatsApp" target="_blank" rel="noopener">
+  <svg viewBox="0 0 24 24"><path d="M17.6 6.32A8.86 8.86 0 0 0 12.05 4a8.94 8.94 0 0 0-7.74 13.4L3 21l3.7-1.27a8.9 8.9 0 0 0 5.36 1.82H12a8.94 8.94 0 0 0 5.6-15.23zm-5.55 13.7a7.4 7.4 0 0 1-4.06-1.2 l-.29-.17-2.2.75.74-2.14-.19-.29a7.42 7.42 0 0 1 11.7-9.04 7.36 7.36 0 0 1 2.18 5.25 7.43 7.43 0 0 1-7.88 6.84zm4.06-5.56c-.22-.11-1.31-.65-1.52-.72-.2-.08-.35-.11-.5.11-.15.21-.57.72-.7.86-.13.15-.26.16-.48.05a6.06 6.06 0 0 1-1.77-1.1 6.6 6.6 0 0 1-1.22-1.51c-.13-.22 0-.34.12-.46.11-.11.25-.29.37-.43.13-.15.17-.25.25-.42.08-.17.04-.31-.04-.43-.08-.11-.5-1.2-.69-1.65-.18-.43-.37-.37-.5-.38h-.43c-.15 0-.39.06-.6.29-.2.22-.78.76-.78 1.85s.8 2.14.91 2.29c.11.15 1.55 2.37 3.76 3.23 2.21.86 2.21.57 2.61.54.4-.04 1.31-.54 1.49-1.06.18-.51.18-.95.13-1.05-.06-.1-.22-.16-.44-.27z"/></svg>
+</a>
+
+<section class="hero">
+  <nav class="nav">
+    <a href="#" class="nav-brand">ClimaTermic<span>Cluj</span></a>
+    <a href="tel:+40758552980" class="nav-btn">Gheorgeni - Sopor</a>
+  </nav>
+
+  <div class="hero-bg"></div>
+
+  <div class="hero-content">
+    <span class="hero-eyebrow">Peste 10 Ani Experiență</span>
+    <h1>Igienizare, Revizii Clima & Instalații Termice</h1>
+    <p class="hero-motto">Servicii specializate de curățare profesională A.C., încărcare freon și mentenanță sisteme de încălzire în Cluj-Napoca.</p>
+    <div class="hero-ctas">
+      <a href="https://wa.me/40758552980" class="btn btn-wa" target="_blank" rel="noopener">WhatsApp Direct</a>
+      <a href="tel:+40758552980" class="btn btn-outline">Apel Solicitări</a>
+    </div>
+  </div>
+</section>
+
+<section class="about">
+  <div class="about-inner reveal">
+    <span class="about-badge">Respiră aer curat și sănătos</span>
+    <h2>Soluții Profesionale pentru Locuințe și Birouri</h2>
+    <p class="about-text">Suntem dedicați exclusiv sistemelor de climatizare casnice și industriale, precum și instalațiilor termice moderne. Folosim soluții avansate cu ioni de argint și echipamente de ultimă generație pentru a elimina bacteriile, praful și mucegaiul, asigurând performanța optimă a echipamentelor tale.</p>
+  </div>
+</section>
+
+<section class="services" id="servicii">
+  <div class="section-head reveal">
+    <span class="eyebrow">Domenii de Expertiză</span>
+    <h2>Servicii Complete</h2>
+    <p>Intervenții rapide, curate și executate corect în Cluj-Napoca și zonele limitrofe.</p>
+  </div>
+  
+  <div class="services-grid reveal reveal-stagger">
+    <div class="svc-card">
+      <h3>Sisteme Aer Condiționat</h3>
+      <ul class="svc-list">
+        <li>Revizie completă și diagnosticare sistem A.C.</li>
+        <li>Curățare profesională profundă (ioni de argint)</li>
+        <li>Eliminare bacterii, mucegai și mirosuri neplăcute</li>
+        <li>Completare agent frigorific (orice tip de freon)</li>
+        <li>Verificare traseu frigorific și instalație electrică</li>
+      </ul>
+    </div>
+
+    <div class="svc-card">
+      <h3>Instalații Termice</h3>
+      <ul class="svc-list">
+        <li>Montaj și reparații centrale termice</li>
+        <li>Verificări tehnice periodice și revizii</li>
+        <li>Montaj sisteme pe bază de pompe de căldură</li>
+        <li>Instalare și mentenanță centrale / boilere pe lemn</li>
+        <li>Optimizare consum și randament termic</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="benefits">
+  <div class="section-head reveal">
+    <span class="eyebrow">Angajamentul Nostru</span>
+    <h2>De ce să ne alegeți?</h2>
+  </div>
+  <div class="benefits-grid reveal reveal-stagger">
+    <div class="benefit-card">
+      <h4>Experiență de >10 Ani</h4>
+      <p>Specializare solidă atât în sisteme casnice standard, cât și în aplicații industriale complexe.</p>
+    </div>
+    <div class="benefit-card">
+      <h4>Igienizare cu Ioni de Argint</h4>
+      <p>Utilizăm doar substanțe certificate, special concepute pentru distrugerea eficientă a microorganismelor.</p>
+    </div>
+    <div class="benefit-card">
+      <h4>Intervenții Curate</h4>
+      <p>Lucrăm ordonat, protejând pereții și mobilierul din casa sau spațiul dumneavoastră comercial.</p>
+    </div>
+    <div class="benefit-card">
+      <h4>Zonă de Acoperire</h4>
+      <p>Localizați strategic în Gheorgeni (str. Soporului), asigurăm timpi rapizi de răspuns în tot Clujul.</p>
+    </div>
+  </div>
+</section>
+
+<section class="cta" id="contact">
+  <h2 class="reveal">Protejează-ți sănătatea și echipamentele!</h2>
+  <p class="cta-sub reveal">Planifică acum o revizie sau o igienizare completă. Răspundem prompt la mesaje și apeluri.</p>
+  
+  <div class="cta-actions reveal">
+    <a href="https://wa.me/40758552980" class="btn btn-wa" target="_blank" rel="noopener">Contact direct pe WhatsApp</a>
+  </div>
+</section>
+
+<footer>
+  <p><strong>Clima & Termice Cluj — Csabi</strong></p>
+  <p style="margin-top: 0.3rem;">Zona Gheorgeni, Str. Soporului &bull; <a href="tel:+40758552980" style="color: #fff; font-weight: 600;">0758 855 2980</a></p>
+  <p style="margin-top: 1.5rem; font-size: 0.75rem; opacity: 0.5;">&copy; Toate drepturile rezervate.</p>
+</footer>
+
+<script>
+(function () {
+  function hideLoader() {
+    var el = document.getElementById('loader');
+    if (el) el.classList.add('hidden');
+  }
+  if (document.readyState === 'complete' || document.readyState === 'interactive') {
+    setTimeout(hideLoader, 50);
+  } else {
+    window.addEventListener('DOMContentLoaded', function () { setTimeout(hideLoader, 50); });
+  }
+
+  var els = document.querySelectorAll('.reveal');
+  if (!('IntersectionObserver' in window)) {
+    els.forEach(function (el) { el.classList.add('is-visible'); });
+    return;
+  }
+  var obs = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-visible');
+        obs.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.06, rootMargin: '0px 0px -15px 0px' });
+  
+  els.forEach(function (el) { obs.observe(el); });
+})();
+</script>
+</body>
+</html>
