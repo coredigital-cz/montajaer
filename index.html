@@ -1,407 +1,988 @@
 <!DOCTYPE html>
 <html lang="ro">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <meta name="description" content="Servicii profesionale de climatizare și instalații termice în Cluj-Napoca. Igienizare aer condiționat, încărcare freon și mentenanță centrale.">
-  <meta name="theme-color" content="#0ea5e9">
-  <meta property="og:title" content="Clima & Termice Cluj | Csabi">
-  <meta property="og:description" content="Peste 10 ani experiență în igienizare A.C., completare freon, pompe de căldură și centrale termice în Cluj.">
-  <title>Clima & Termice Cluj | Csabi</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Clima & Termice Cluj | Csabi</title>
+<meta name="description" content="Servicii profesionale de climatizare si instalatii termice in Cluj-Napoca. Igienizare aer conditionat, incarcare freon si mentenanta centrale.">
+<meta property="og:title" content="Clima & Termice Cluj | Csabi">
+<meta property="og:description" content="Peste 10 ani experienta in igienizare A.C., completare freon, pompe de caldura si centrale termice in Cluj.">
+<meta name="theme-color" content="#0284C7">
 
-    :root {
-      --primary: #0ea5e9;
-      --primary-dark: #0284c7;
-      --accent:  #f97316;
-      --ink:     #0f172a;
-      --ink-2:   #1e293b;
-      --gray:    #475569;
-      --gray-2:  #64748b;
-      --light:   #f8fafc;
-      --paper:   #ffffff;
-      --mobile-bar-h: 68px;
-      --line:    rgba(15,23,42,0.08);
-    }
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
-    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 
-    body {
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-      color: var(--ink);
-      line-height: 1.6;
-      overflow-x: hidden;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-      background: var(--light);
-    }
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "Clima & Termice Cluj — Csabi",
+  "telephone": "+40758552980",
+  "address": {"@type": "PostalAddress", "streetAddress": "Str. Soporului, Gheorgeni", "addressLocality": "Cluj-Napoca", "addressCountry": "RO"},
+  "aggregateRating": {"@type": "AggregateRating", "ratingValue": "4.9", "reviewCount": "150"}
+}
+</script>
 
-    /* ── LOADING SCREEN ────── */
-    .loader {
-      position: fixed; inset: 0; z-index: 9999;
-      background: var(--ink);
-      display: flex; align-items: center; justify-content: center;
-      transition: opacity 0.4s ease, visibility 0.4s ease;
-    }
-    .loader.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
-    .loader-mark {
-      width: 44px; height: 44px;
-      border: 3px solid rgba(255,255,255,0.1);
-      border-top-color: var(--accent);
-      border-radius: 50%;
-      animation: spin 0.8s linear infinite;
-    }
-    @keyframes spin { to { transform: rotate(360deg); } }
+<style>
+:root {
+  --sky: #0284C7;
+  --sky-dark: #075985;
+  --sky-light: #E0F2FE;
+  --sky-50: #F0F9FF;
+  --flame: #EA580C;
+  --flame-dark: #C2410C;
+  --flame-light: #FFF7ED;
+  --flame-mid: #FFEDD5;
+  --bg: #F8FAFC;
+  --surface: #FFFFFF;
+  --text: #0C1824;
+  --text-dim: #64748B;
+  --border: #E2E8F0;
+  --radius: 14px;
+}
 
-    /* ── ANIMATII ȘI PERFORMANȚĂ ── */
-    .reveal { 
-      opacity: 0; 
-      transform: translateY(20px); 
-      transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-      will-change: transform, opacity;
-    }
-    .reveal.is-visible { opacity: 1; transform: translateY(0); }
-    
-    .reveal-stagger.is-visible > * { animation: fadeUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
-    .reveal-stagger.is-visible > *:nth-child(1) { animation-delay: 0s; }
-    .reveal-stagger.is-visible > *:nth-child(2) { animation-delay: 0.08s; }
-    .reveal-stagger.is-visible > *:nth-child(3) { animation-delay: 0.16s; }
-    .reveal-stagger.is-visible > *:nth-child(4) { animation-delay: 0.24s; }
-    
-    @keyframes fadeUp { 
-      from { opacity: 0; transform: translateY(15px); } 
-      to { opacity: 1; transform: translateY(0); } 
-    }
-    @keyframes heroIn {
-      0%   { opacity: 0; transform: translateY(25px); }
-      100% { opacity: 1; transform: translateY(0); }
-    }
-    @keyframes floatPulse { 
-      0%, 100% { transform: scale(1); } 
-      50% { transform: scale(1.04); } 
-    }
-    @keyframes kenBurns {
-      0%   { transform: scale(1.0); }
-      100% { transform: scale(1.04); }
-    }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  background: var(--bg); color: var(--text);
+  overflow-x: hidden; line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
 
-    /* ── NAV ─────────────────────────────────────────────── */
-    .nav {
-      position: absolute; top: 0; left: 0; right: 0;
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 1.5rem; z-index: 30;
-      animation: heroIn 0.8s 0.1s cubic-bezier(0.16, 1, 0.3, 1) both;
-    }
-    .nav-brand {
-      color: #fff; font-size: 1.1rem; font-weight: 800; text-decoration: none;
-      letter-spacing: 0.05em; text-transform: uppercase;
-    }
-    .nav-brand span { color: var(--accent); }
-    .nav-btn {
-      display: inline-flex; align-items: center; color: #fff;
-      font-size: 0.8rem; font-weight: 700; text-decoration: none;
-      background: rgba(255,255,255,0.1); backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px); border: 1px solid rgba(255,255,255,0.15);
-      padding: 0.5rem 1rem; border-radius: 4px;
-      letter-spacing: 0.05em; text-transform: uppercase; transition: background 0.2s;
-    }
-    .nav-btn:hover { background: rgba(255,255,255,0.2); }
+/* ── NAV ── */
+.nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  padding: 0 24px; transition: all 0.35s;
+}
+.nav.scrolled {
+  background: rgba(255,255,255,0.92);
+  backdrop-filter: blur(16px);
+  box-shadow: 0 1px 12px rgba(0,0,0,0.06);
+}
+.nav-inner {
+  max-width: 1200px; margin: 0 auto;
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 16px 0;
+}
+.nav-logo {
+  font-family: 'DM Serif Display', serif;
+  font-size: 1.3rem; color: var(--sky-dark);
+  text-decoration: none; display: flex; align-items: center; gap: 8px;
+}
+.nav-logo-icon {
+  width: 32px; height: 32px; border-radius: 8px;
+  background: linear-gradient(135deg, var(--sky), var(--flame));
+  display: flex; align-items: center; justify-content: center;
+}
+.nav-logo-icon svg { width: 18px; height: 18px; color: #fff; }
+.nav-links { display: flex; align-items: center; gap: 28px; list-style: none; }
+.nav-links a {
+  color: var(--text-dim); text-decoration: none; font-size: 0.88rem;
+  font-weight: 500; transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--sky); }
+.nav-cta {
+  background: var(--sky); color: #fff !important;
+  padding: 10px 20px; border-radius: 10px; font-weight: 600;
+  transition: all 0.25s; font-size: 0.86rem !important;
+}
+.nav-cta:hover { background: var(--sky-dark); transform: translateY(-2px); }
 
-    /* ── HERO ────────────────────────────────────────────── */
-    .hero {
-      position: relative; min-height: 100vh; display: flex; flex-direction: column;
-      justify-content: center; align-items: center; text-align: center;
-      padding: 6rem 1.5rem; overflow: hidden; background: var(--ink);
-    }
-    .hero-bg {
-      position: absolute; inset: 0;
-      background-image: url('https://images.unsplash.com/photo-1581094288338-2314dddb7ece?auto=format&fit=crop&w=1200&q=80');
-      background-size: cover; background-position: center; z-index: 0;
-      animation: kenBurns 12s ease-in-out infinite alternate;
-    }
-    .hero-bg::after {
-      content: ''; position: absolute; inset: 0;
-      background: linear-gradient(180deg, rgba(15,23,42,0.88) 0%, rgba(15,23,42,0.65) 50%, rgba(15,23,42,0.92) 100%);
-    }
-    .hero-content {
-      position: relative; z-index: 1; max-width: 780px;
-      animation: heroIn 0.8s 0.2s cubic-bezier(0.16, 1, 0.3, 1) both;
-    }
-    .hero-eyebrow {
-      display: inline-block; color: var(--accent); font-size: 0.75rem; font-weight: 700;
-      letter-spacing: 0.25em; text-transform: uppercase; margin-bottom: 1.2rem;
-    }
-    .hero h1 {
-      font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 900; color: #fff;
-      line-height: 1.15; margin-bottom: 1.2rem; letter-spacing: -0.025em;
-    }
-    .hero-motto {
-      font-size: clamp(1rem, 2vw, 1.15rem); color: rgba(255,255,255,0.85);
-      margin-bottom: 2.5rem; max-width: 600px; margin-left: auto; margin-right: auto;
-    }
-    .hero-ctas { display: flex; flex-wrap: wrap; gap: 0.8rem; justify-content: center; }
-    
-    .btn {
-      display: inline-flex; align-items: center; justify-content: center;
-      font-size: 0.85rem; font-weight: 700; padding: 0.95rem 2rem;
-      border-radius: 4px; text-decoration: none;
-      transition: transform 0.2s, background-color 0.2s, box-shadow 0.2s;
-      letter-spacing: 0.06em; text-transform: uppercase;
-    }
-    .btn:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(0,0,0,0.3); }
-    .btn-primary { background: var(--primary); color: #fff; }
-    .btn-primary:hover { background: var(--primary-dark); }
-    .btn-wa { background: #25D366; color: #fff; }
-    .btn-wa:hover { background: #20ba5a; }
-    .btn-outline { background: transparent; color: #fff; border: 1.5px solid rgba(255,255,255,0.3); }
-    .btn-outline:hover { background: rgba(255,255,255,0.1); border-color: #fff; }
+.nav-hamburger {
+  display: none; background: none; border: none; cursor: pointer;
+  width: 32px; height: 32px; position: relative;
+}
+.nav-hamburger span {
+  display: block; width: 22px; height: 2px; background: var(--text);
+  position: absolute; left: 5px; transition: all 0.3s;
+}
+.nav-hamburger span:nth-child(1) { top: 9px; }
+.nav-hamburger span:nth-child(2) { top: 15px; }
+.nav-hamburger span:nth-child(3) { top: 21px; }
+.nav-hamburger.open span:nth-child(1) { top: 15px; transform: rotate(45deg); }
+.nav-hamburger.open span:nth-child(2) { opacity: 0; }
+.nav-hamburger.open span:nth-child(3) { top: 15px; transform: rotate(-45deg); }
 
-    /* ── SECTIONS GENERAL ────────────────────────────────── */
-    .section-head { text-align: center; margin-bottom: 4rem; max-width: 600px; margin-left: auto; margin-right: auto; }
-    .section-head .eyebrow { color: var(--primary); font-size: 0.75rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 0.5rem; display: block; }
-    .section-head h2 { font-size: clamp(1.8rem, 4vw, 2.4rem); font-weight: 800; color: var(--ink); letter-spacing: -0.02em; line-height: 1.2; }
-    .section-head p { color: var(--gray); margin-top: 0.5rem; font-size: 0.95rem; }
+@media (max-width: 768px) {
+  .nav-hamburger { display: block; }
+  .nav-links {
+    position: fixed; top: 0; right: -100%; width: 280px; height: 100vh;
+    background: var(--surface); flex-direction: column; justify-content: center;
+    gap: 24px; padding: 40px;
+    box-shadow: -8px 0 30px rgba(0,0,0,0.1); transition: right 0.35s ease;
+  }
+  .nav-links.open { right: 0; }
+  .nav-links a { font-size: 1.05rem; }
+}
 
-    /* Despre */
-    .about { background: var(--paper); padding: 5.5rem 1.5rem; border-bottom: 1px solid var(--line); }
-    .about-inner { max-width: 720px; margin: 0 auto; text-align: center; }
-    .about-badge { display: inline-block; background: rgba(14,165,233,0.08); color: var(--primary); font-size: 0.8rem; font-weight: 700; padding: 0.4rem 1rem; border-radius: 20px; margin-bottom: 1.2rem; text-transform: uppercase; letter-spacing: 0.05em; }
-    .about-inner h2 { font-size: 1.6rem; font-weight: 800; color: var(--ink); margin-bottom: 1rem; letter-spacing: -0.01em; }
-    .about-text { color: var(--gray); font-size: 1rem; line-height: 1.75; }
+/* ── HERO ── */
+.hero {
+  min-height: 100vh; display: flex; align-items: center;
+  padding: 120px 24px 80px;
+  position: relative; overflow: hidden;
+  background: linear-gradient(135deg, var(--sky-50) 0%, var(--bg) 50%, var(--flame-light) 100%);
+}
+.hero::before {
+  content: ''; position: absolute; top: -100px; right: -150px;
+  width: 500px; height: 500px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(2,132,199,0.1) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hero::after {
+  content: ''; position: absolute; bottom: -80px; left: -100px;
+  width: 400px; height: 400px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(234,88,12,0.08) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hero-inner {
+  max-width: 800px; margin: 0 auto; text-align: center;
+  position: relative; z-index: 1;
+}
+.hero-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--sky-light); color: var(--sky);
+  padding: 8px 18px; border-radius: 50px;
+  font-size: 0.82rem; font-weight: 600; margin-bottom: 24px;
+}
+.hero-badge-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--sky); animation: pulse-dot 2s infinite;
+}
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(1.4); }
+}
+.hero h1 {
+  font-family: 'DM Serif Display', serif;
+  font-size: clamp(2.4rem, 5vw, 3.6rem);
+  font-weight: 400; line-height: 1.12;
+  margin-bottom: 20px; letter-spacing: -0.02em;
+}
+.hero h1 .cool { color: var(--sky); }
+.hero h1 .warm { color: var(--flame); font-style: italic; }
+.hero-desc {
+  font-size: 1.08rem; color: var(--text-dim);
+  max-width: 560px; margin: 0 auto 36px;
+}
+.hero-ctas { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
 
-    /* Servicii */
-    .services { padding: 5.5rem 1.5rem; background: var(--light); }
-    .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; max-width: 1020px; margin: 0 auto; }
-    .svc-card { 
-      background: var(--paper); border: 1px solid var(--line); padding: 2.2rem; border-radius: 4px;
-      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s;
-    }
-    .svc-card:hover { transform: translateY(-4px); box-shadow: 0 12px 24px rgba(0,0,0,0.04); }
-    .svc-card h3 { font-size: 1.2rem; font-weight: 700; color: var(--ink); margin-bottom: 1rem; border-bottom: 2px solid rgba(14,165,233,0.1); padding-bottom: 0.5rem; }
-    .svc-list { list-style: none; }
-    .svc-list li { font-size: 0.9rem; color: var(--gray); margin-bottom: 0.6rem; position: relative; padding-left: 1.2rem; line-height: 1.5; }
-    .svc-list li::before { content: "✦"; color: var(--primary); font-weight: bold; position: absolute; left: 0; top: 0; font-size: 0.9rem; }
+.btn, .btn-outline {
+  padding: 14px 28px; border-radius: 12px;
+  font-weight: 600; text-decoration: none;
+  font-size: 0.95rem; display: inline-flex; align-items: center; gap: 10px;
+  transition: all 0.3s; border: none; cursor: pointer; font-family: inherit;
+}
+.btn {
+  background: var(--sky); color: #fff;
+  box-shadow: 0 6px 24px rgba(2,132,199,0.25);
+}
+.btn:hover { background: var(--sky-dark); transform: translateY(-3px); box-shadow: 0 12px 32px rgba(2,132,199,0.3); }
+.btn-warm { background: var(--flame); box-shadow: 0 6px 24px rgba(234,88,12,0.25); }
+.btn-warm:hover { background: var(--flame-dark); box-shadow: 0 12px 32px rgba(234,88,12,0.3); }
+.btn-outline {
+  background: var(--surface); color: var(--text);
+  border: 1.5px solid var(--border);
+}
+.btn-outline:hover { border-color: var(--sky); color: var(--sky); transform: translateY(-3px); }
 
-    /* Avantaje */
-    .benefits { padding: 5.5rem 1.5rem; background: var(--paper); border-top: 1px solid var(--line); }
-    .benefits-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; max-width: 1020px; margin: 0 auto; }
-    .benefit-card { padding: 1.5rem; background: var(--light); border-radius: 4px; border-left: 3px solid var(--accent); }
-    .benefit-card h4 { font-size: 1.05rem; font-weight: 700; color: var(--ink); margin-bottom: 0.4rem; }
-    .benefit-card p { font-size: 0.88rem; color: var(--gray); line-height: 1.6; }
+.hero-trust {
+  margin-top: 48px; display: flex; justify-content: center; gap: 40px; flex-wrap: wrap;
+}
+.hero-trust-item { text-align: center; }
+.hero-trust-num {
+  font-family: 'DM Serif Display', serif;
+  font-size: 1.8rem; color: var(--sky-dark); display: block;
+}
+.hero-trust-label { font-size: 0.78rem; color: var(--text-dim); font-weight: 500; }
 
-    /* CTA */
-    .cta { background: var(--ink); padding: 5.5rem 1.5rem; text-align: center; position: relative; }
-    .cta h2 { color: #fff; font-size: clamp(1.8rem, 4vw, 2.4rem); font-weight: 800; margin-bottom: 0.8rem; letter-spacing: -0.02em; }
-    .cta-sub { color: rgba(255,255,255,0.75); margin-bottom: 2rem; max-width: 500px; margin-left: auto; margin-right: auto; font-size: 0.95rem; line-height: 1.6; }
-    
-    /* Footer */
-    footer { background: var(--ink-2); color: rgba(255,255,255,0.4); text-align: center; padding: 2.5rem 1.5rem; font-size: 0.8rem; border-top: 1px solid rgba(255,255,255,0.05); }
-    footer strong { color: #fff; font-size: 0.95rem; letter-spacing: 0.05em; }
-    footer a { color: rgba(255,255,255,0.6); text-decoration: none; }
+/* ── STATS ── */
+.stats-strip {
+  background: linear-gradient(135deg, var(--sky-dark), var(--sky));
+  padding: 0 24px;
+}
+.stats-inner {
+  max-width: 1200px; margin: 0 auto;
+  display: grid; grid-template-columns: repeat(4, 1fr);
+}
+.stat-item {
+  text-align: center; padding: 36px 16px;
+  border-right: 1px solid rgba(255,255,255,0.12);
+}
+.stat-item:last-child { border-right: none; }
+.stat-num {
+  font-family: 'DM Serif Display', serif;
+  font-size: 2.2rem; color: #fff; display: block; margin-bottom: 4px;
+}
+.stat-label { color: rgba(255,255,255,0.75); font-size: 0.82rem; font-weight: 500; }
 
-    /* Floating WhatsApp pentru Desktop */
-    .float-wa {
-      position: fixed; bottom: 2rem; right: 2rem; background: #25D366; color: #fff;
-      width: 56px; height: 56px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
-      text-decoration: none; box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3); z-index: 999;
-      animation: floatPulse 2s ease-in-out infinite;
-    }
-    .float-wa svg { width: 28px; height: 28px; fill: currentColor; }
+@media (max-width: 600px) {
+  .stats-inner { grid-template-columns: repeat(2, 1fr); }
+  .stat-item { border-bottom: 1px solid rgba(255,255,255,0.12); padding: 24px 12px; }
+  .stat-item:nth-child(odd) { border-right: 1px solid rgba(255,255,255,0.12); }
+  .stat-item:nth-child(even) { border-right: none; }
+  .stat-item:nth-last-child(-n+2) { border-bottom: none; }
+}
 
-    /* ── STICKY BAR MOBIL ── */
-    .mobile-bar {
-      display: none; position: fixed; bottom: 0; left: 0; right: 0; z-index: 1000;
-      height: calc(var(--mobile-bar-h) + env(safe-area-inset-bottom));
-      background: rgba(255,255,255,0.96); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
-      box-shadow: 0 -4px 20px rgba(0,0,0,0.08);
-      padding: 0.5rem 0.75rem calc(0.5rem + env(safe-area-inset-bottom));
-      gap: 0.5rem; border-top: 1px solid var(--line);
-    }
-    .mobile-bar a {
-      flex: 1; display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
-      border-radius: 4px; font-weight: 700; font-size: 0.82rem; text-decoration: none;
-      text-transform: uppercase; letter-spacing: 0.05em;
-    }
-    .mobile-bar .m-call { background: var(--white); color: var(--ink); border: 1.5px solid var(--ink); }
-    .mobile-bar .m-wa { background: #25D366; color: #fff; }
-    .mobile-bar svg { width: 16px; height: 16px; fill: currentColor; }
+/* ── SECTIONS ── */
+.section { padding: 100px 24px; }
+.section-inner { max-width: 1200px; margin: 0 auto; }
+.section-label {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 0.8rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.1em;
+  margin-bottom: 12px;
+}
+.section-label svg { width: 18px; height: 18px; }
+.label-sky { color: var(--sky); }
+.label-flame { color: var(--flame); }
+.section-title {
+  font-family: 'DM Serif Display', serif;
+  font-size: clamp(1.9rem, 3.5vw, 2.6rem);
+  font-weight: 400; margin-bottom: 14px;
+  letter-spacing: -0.02em; line-height: 1.15;
+}
+.section-desc {
+  color: var(--text-dim); font-size: 1.02rem;
+  max-width: 560px; margin-bottom: 52px;
+}
+.section-center { text-align: center; }
+.section-center .section-desc { margin-left: auto; margin-right: auto; }
 
-    /* ── RESPONSIVE & MOBILE TOUCH OPTIMIZATIONS ── */
-    @media (max-width: 768px) {
-      .float-wa { display: none; }
-      .mobile-bar { display: flex; }
-      body { padding-bottom: calc(var(--mobile-bar-h) + env(safe-area-inset-bottom)); }
-      .hero { min-height: calc(100vh - var(--mobile-bar-h)); }
-      
-      .svc-card:hover, .btn:hover { transform: none !important; box-shadow: none !important; }
-    }
-    
-    @media (max-width: 480px) {
-      .services-grid { grid-template-columns: 1fr; }
-    }
-    
-    @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after {
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: 0.01ms !important;
-        scroll-behavior: auto !important;
-      }
-    }
-  </style>
+/* ── SERVICES ── */
+.services-split {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+@media (max-width: 768px) { .services-split { grid-template-columns: 1fr; } }
+
+.service-column {
+  border-radius: 20px; padding: 36px 32px;
+  position: relative; overflow: hidden;
+}
+.service-column::before {
+  content: ''; position: absolute; top: -40px; right: -40px;
+  width: 160px; height: 160px; border-radius: 50%;
+  opacity: 0.15; pointer-events: none;
+}
+.service-col-cool { background: var(--sky-50); border: 1px solid rgba(2,132,199,0.12); }
+.service-col-cool::before { background: var(--sky); }
+.service-col-warm { background: var(--flame-light); border: 1px solid rgba(234,88,12,0.12); }
+.service-col-warm::before { background: var(--flame); }
+
+.service-col-header {
+  display: flex; align-items: center; gap: 12px;
+  margin-bottom: 24px;
+}
+.service-col-icon {
+  width: 44px; height: 44px; border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+}
+.service-col-icon svg { width: 22px; height: 22px; }
+.icon-sky { background: var(--sky-light); color: var(--sky); }
+.icon-flame { background: var(--flame-mid); color: var(--flame); }
+
+.service-col-title {
+  font-family: 'DM Serif Display', serif;
+  font-size: 1.3rem; font-weight: 400;
+}
+
+.service-list { list-style: none; display: flex; flex-direction: column; gap: 14px; }
+.service-list li {
+  display: flex; align-items: flex-start; gap: 12px;
+  font-size: 0.92rem; color: var(--text); line-height: 1.55;
+}
+.service-check {
+  width: 20px; height: 20px; border-radius: 6px;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; margin-top: 2px;
+}
+.service-check svg { width: 12px; height: 12px; }
+.check-sky { background: var(--sky-light); color: var(--sky); }
+.check-flame { background: var(--flame-mid); color: var(--flame); }
+
+/* ── WHY US ── */
+.why-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+}
+.why-card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 28px 24px;
+  transition: all 0.3s; position: relative;
+}
+.why-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 36px rgba(0,0,0,0.07);
+  border-color: var(--sky);
+}
+.why-card-icon {
+  width: 48px; height: 48px; border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 16px;
+}
+.why-card-icon svg { width: 24px; height: 24px; }
+.why-card h3 {
+  font-family: 'DM Serif Display', serif;
+  font-size: 1.12rem; margin-bottom: 8px;
+}
+.why-card p { color: var(--text-dim); font-size: 0.9rem; }
+
+/* ── GALLERY ── */
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: 240px 240px;
+  gap: 14px;
+}
+.gallery-item {
+  border-radius: var(--radius); overflow: hidden;
+  position: relative; cursor: pointer;
+}
+.gallery-item img {
+  width: 100%; height: 100%; object-fit: cover;
+  transition: transform 0.6s;
+}
+.gallery-item:hover img { transform: scale(1.06); }
+.gallery-item::after {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.55) 0%, transparent 50%);
+  opacity: 0; transition: opacity 0.3s;
+}
+.gallery-item:hover::after { opacity: 1; }
+.gallery-caption {
+  position: absolute; bottom: 14px; left: 14px; right: 14px;
+  color: #fff; font-weight: 600; font-size: 0.88rem;
+  opacity: 0; transition: opacity 0.3s; z-index: 1;
+}
+.gallery-item:hover .gallery-caption { opacity: 1; }
+
+/* Placeholder for galleries without photos */
+.gallery-placeholder {
+  display: flex; flex-direction: column; align-items: center;
+  justify-content: center; gap: 10px; text-align: center;
+  padding: 20px; color: #fff;
+}
+.gallery-placeholder svg { width: 36px; height: 36px; opacity: 0.9; }
+.gallery-placeholder span { font-weight: 600; font-size: 0.85rem; opacity: 0.9; }
+.gp-1 { background: linear-gradient(135deg, #0284C7, #06B6D4); }
+.gp-2 { background: linear-gradient(135deg, #EA580C, #F59E0B); }
+.gp-3 { background: linear-gradient(135deg, #075985, #0284C7); }
+.gp-4 { background: linear-gradient(135deg, #C2410C, #EA580C); }
+.gp-5 { background: linear-gradient(135deg, #0369A1, #38BDF8); }
+.gp-6 { background: linear-gradient(135deg, #9A3412, #FB923C); }
+
+@media (max-width: 768px) {
+  .gallery-grid { grid-template-columns: 1fr 1fr; grid-template-rows: repeat(3, 200px); }
+}
+@media (max-width: 480px) {
+  .gallery-grid { grid-template-columns: 1fr; grid-template-rows: auto; }
+  .gallery-item { height: 200px; }
+}
+
+/* ── REVIEWS ── */
+.reviews-bg { background: var(--sky-50); }
+.reviews-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+}
+.review-card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 28px;
+  transition: all 0.3s;
+}
+.review-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(0,0,0,0.06);
+}
+.review-stars { color: #F59E0B; font-size: 1.1rem; margin-bottom: 14px; letter-spacing: 2px; }
+.review-text {
+  font-size: 0.93rem; line-height: 1.7;
+  color: var(--text); margin-bottom: 18px; font-style: italic;
+}
+.review-author { display: flex; align-items: center; gap: 12px; }
+.review-avatar {
+  width: 42px; height: 42px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 700; color: #fff; font-size: 0.9rem;
+}
+.av-sky { background: linear-gradient(135deg, var(--sky), #06B6D4); }
+.av-flame { background: linear-gradient(135deg, var(--flame), #F59E0B); }
+.review-author-info { display: flex; flex-direction: column; }
+.review-author-name { font-weight: 600; font-size: 0.9rem; }
+.review-author-meta { font-size: 0.78rem; color: var(--text-dim); }
+
+/* ── CTA BANNER ── */
+.cta-banner {
+  background: linear-gradient(135deg, var(--sky-dark), var(--sky));
+  padding: 64px 24px; text-align: center;
+  position: relative; overflow: hidden;
+}
+.cta-banner::before {
+  content: ''; position: absolute; top: -80px; right: -80px;
+  width: 300px; height: 300px; border-radius: 50%;
+  background: rgba(255,255,255,0.06); pointer-events: none;
+}
+.cta-banner h2 {
+  font-family: 'DM Serif Display', serif;
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+  color: #fff; margin-bottom: 12px;
+}
+.cta-banner p { color: rgba(255,255,255,0.8); margin-bottom: 28px; font-size: 1rem; }
+.cta-banner .btn { background: #fff; color: var(--sky-dark); box-shadow: 0 6px 24px rgba(0,0,0,0.15); }
+.cta-banner .btn:hover { transform: translateY(-3px); box-shadow: 0 12px 32px rgba(0,0,0,0.2); }
+
+/* ── CONTACT ── */
+.contact-section { background: var(--surface); }
+.contact-cards {
+  max-width: 700px; margin: 0 auto;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
+}
+@media (max-width: 600px) { .contact-cards { grid-template-columns: 1fr; } }
+
+.contact-card {
+  display: flex; align-items: center; gap: 14px;
+  padding: 20px; background: var(--bg);
+  border: 1px solid var(--border); border-radius: 12px;
+  text-decoration: none; color: var(--text);
+  transition: all 0.25s;
+}
+.contact-card:hover { border-color: var(--sky); transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,0.06); }
+.contact-card-icon {
+  width: 48px; height: 48px; border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.contact-card-icon svg { width: 22px; height: 22px; }
+.contact-card-text { display: flex; flex-direction: column; }
+.contact-card-label { font-size: 0.8rem; color: var(--text-dim); }
+.contact-card-value { font-weight: 600; font-size: 0.95rem; }
+
+/* ── FOOTER ── */
+.footer {
+  background: var(--sky-dark); color: rgba(255,255,255,0.7);
+  padding: 44px 24px 28px; text-align: center; font-size: 0.85rem;
+}
+.footer-logo {
+  font-family: 'DM Serif Display', serif;
+  font-size: 1.3rem; color: #fff; margin-bottom: 6px;
+}
+.footer-addr { margin-bottom: 16px; }
+.footer-divider { width: 50px; height: 2px; background: var(--flame); margin: 16px auto; opacity: 0.5; }
+
+/* ── FLOATING WHATSAPP ── */
+.wa-float {
+  position: fixed; bottom: 24px; right: 24px;
+  width: 58px; height: 58px; border-radius: 50%;
+  background: #25d366; color: #fff;
+  display: flex; align-items: center; justify-content: center;
+  text-decoration: none;
+  box-shadow: 0 6px 20px rgba(37,211,102,0.4);
+  z-index: 100; animation: pulse-wa 2.5s infinite;
+  transition: transform 0.3s;
+}
+.wa-float:hover { transform: scale(1.1); }
+.wa-float svg { width: 28px; height: 28px; }
+@keyframes pulse-wa {
+  0%, 100% { box-shadow: 0 6px 20px rgba(37,211,102,0.4); }
+  50% { box-shadow: 0 6px 32px rgba(37,211,102,0.65); }
+}
+
+/* ── MOBILE CTA BAR ── */
+.mobile-bar {
+  display: none; position: fixed; bottom: 0; left: 0; right: 0;
+  background: var(--surface); border-top: 1px solid var(--border);
+  padding: 10px 16px; z-index: 99; gap: 10px;
+}
+.mobile-bar a {
+  flex: 1; padding: 12px; border-radius: 10px; text-align: center;
+  text-decoration: none; font-weight: 600; font-size: 0.86rem;
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+}
+.mobile-bar .mb-call { background: var(--sky); color: #fff; }
+.mobile-bar .mb-wa { background: #25d366; color: #fff; }
+@media (max-width: 768px) {
+  .mobile-bar { display: flex; }
+  .wa-float { bottom: 80px; }
+  body { padding-bottom: 70px; }
+}
+
+/* ── LIGHTBOX ── */
+.lightbox {
+  position: fixed; inset: 0; z-index: 200;
+  background: rgba(0,0,0,0.9);
+  display: none; align-items: center; justify-content: center; padding: 40px;
+}
+.lightbox.open { display: flex; }
+.lightbox img { max-width: 100%; max-height: 90vh; border-radius: 12px; object-fit: contain; }
+.lightbox-close {
+  position: absolute; top: 20px; right: 24px;
+  background: none; border: none; color: #fff;
+  font-size: 2rem; cursor: pointer; width: 44px; height: 44px;
+  display: flex; align-items: center; justify-content: center;
+}
+
+/* ── ANIMATIONS ── */
+.reveal { opacity: 0; transform: translateY(28px); }
+</style>
 </head>
 <body>
 
-<div class="loader" id="loader"><div class="loader-mark"></div></div>
+<!-- Nav -->
+<nav class="nav" id="mainNav">
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">
+      <span class="nav-logo-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>
+      </span>
+      ClimaTermicCluj
+    </a>
+    <button class="nav-hamburger" id="hamburger" aria-label="Meniu">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#servicii">Servicii</a></li>
+      <li><a href="#galerie">Galerie</a></li>
+      <li><a href="#recenzii">Recenzii</a></li>
+      <li><a href="#contact">Contact</a></li>
+      <li><a href="tel:+40758552980" class="nav-cta">Suna acum</a></li>
+    </ul>
+  </div>
+</nav>
 
-<!-- Sticky Bar pentru mobil (Contact Rapid) -->
-<div class="mobile-bar">
-  <a href="tel:+40758552980" class="m-call">
-    <svg viewBox="0 0 24 24"><path d="M6.62 10.79a15.05 15.05 0 0 0 6.59 6.59l2.2-2.2a1 1 0 0 1 1.01-.24 11.4 11.4 0 0 0 3.58.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.49a1 1 0 0 1 1 1 11.4 11.4 0 0 0 .57 3.58 1 1 0 0 1-.24 1.02z"/></svg>
-    Sună Acum
+<!-- Hero -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-badge reveal">
+      <span class="hero-badge-dot"></span>
+      Disponibil pentru interventii rapide
+    </div>
+    <h1 class="reveal">Igienizare <span class="cool">clima</span>, revizii si instalatii <span class="warm">termice</span></h1>
+    <p class="hero-desc reveal">Curatare profesionala A.C. cu ioni de argint, incarcare freon si mentenanta sisteme de incalzire in Cluj-Napoca. Peste 10 ani de experienta.</p>
+    <div class="hero-ctas reveal">
+      <a href="https://wa.me/40758552980" class="btn">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347zM12.005 21.79a9.847 9.847 0 0 1-5.031-1.378l-.361-.214-3.741.981.999-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.885-9.885 9.885M20.52 3.449C18.24 1.245 15.24 0 12.045 0 5.463 0 .104 5.334.101 11.892c0 2.096.549 4.14 1.595 5.945L0 24l6.335-1.652a12.062 12.062 0 0 0 5.71 1.447h.006c6.585 0 11.946-5.336 11.949-11.896 0-3.176-1.24-6.165-3.495-8.411"/></svg>
+        WhatsApp Direct
+      </a>
+      <a href="tel:+40758552980" class="btn-outline">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        0758 552 980
+      </a>
+    </div>
+    <div class="hero-trust reveal">
+      <div class="hero-trust-item">
+        <span class="hero-trust-num">10+</span>
+        <span class="hero-trust-label">Ani experienta</span>
+      </div>
+      <div class="hero-trust-item">
+        <span class="hero-trust-num">500+</span>
+        <span class="hero-trust-label">Interventii</span>
+      </div>
+      <div class="hero-trust-item">
+        <span class="hero-trust-num">4.9/5</span>
+        <span class="hero-trust-label">Nota recenzii</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Stats -->
+<div class="stats-strip">
+  <div class="stats-inner">
+    <div class="stat-item reveal"><span class="stat-num">10+</span><span class="stat-label">Ani experienta</span></div>
+    <div class="stat-item reveal"><span class="stat-num">500+</span><span class="stat-label">Interventii finalizate</span></div>
+    <div class="stat-item reveal"><span class="stat-num">4.9/5</span><span class="stat-label">Nota medie recenzii</span></div>
+    <div class="stat-item reveal"><span class="stat-num">&lt;2h</span><span class="stat-label">Timp mediu raspuns</span></div>
+  </div>
+</div>
+
+<!-- Services -->
+<section class="section" id="servicii">
+  <div class="section-inner">
+    <div class="section-center">
+      <div class="section-label label-sky reveal">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+        Domenii de expertiza
+      </div>
+      <h2 class="section-title reveal">Servicii complete</h2>
+      <p class="section-desc reveal">Interventii rapide, curate si executate corect in Cluj-Napoca si zonele limitrofe.</p>
+    </div>
+
+    <div class="services-split">
+      <div class="service-column service-col-cool reveal">
+        <div class="service-col-header">
+          <div class="service-col-icon icon-sky">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>
+          </div>
+          <h3 class="service-col-title">Sisteme Aer Conditionat</h3>
+        </div>
+        <ul class="service-list">
+          <li>
+            <span class="service-check check-sky"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></span>
+            Revizie completa si diagnosticare sistem A.C.
+          </li>
+          <li>
+            <span class="service-check check-sky"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></span>
+            Curatare profesionala profunda cu ioni de argint
+          </li>
+          <li>
+            <span class="service-check check-sky"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></span>
+            Eliminare bacterii, mucegai si mirosuri neplacute
+          </li>
+          <li>
+            <span class="service-check check-sky"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></span>
+            Completare agent frigorific (orice tip de freon)
+          </li>
+          <li>
+            <span class="service-check check-sky"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></span>
+            Verificare traseu frigorific si instalatie electrica
+          </li>
+        </ul>
+      </div>
+
+      <div class="service-column service-col-warm reveal">
+        <div class="service-col-header">
+          <div class="service-col-icon icon-flame">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2c.5 2.5 2 4.5 2 7a4 4 0 1 1-4-4c1-2 3-3 2-3z"/><path d="M12 22c-4 0-7-3-7-7 0-2 1-4 2-5.5.5 3 2.5 5 5 5 0-2.5 2-4 2-7 2 1.5 4 4 4 7.5 0 4-3 7-6 7z"/></svg>
+          </div>
+          <h3 class="service-col-title">Instalatii Termice</h3>
+        </div>
+        <ul class="service-list">
+          <li>
+            <span class="service-check check-flame"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></span>
+            Montaj si reparatii centrale termice
+          </li>
+          <li>
+            <span class="service-check check-flame"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></span>
+            Verificari tehnice periodice si revizii
+          </li>
+          <li>
+            <span class="service-check check-flame"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></span>
+            Montaj sisteme pe baza de pompe de caldura
+          </li>
+          <li>
+            <span class="service-check check-flame"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></span>
+            Instalare si mentenanta centrale / boilere pe lemn
+          </li>
+          <li>
+            <span class="service-check check-flame"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></span>
+            Optimizare consum si randament termic
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Why Us -->
+<section class="section" style="background: var(--surface);">
+  <div class="section-inner">
+    <div class="section-center">
+      <div class="section-label label-sky reveal">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        Angajamentul nostru
+      </div>
+      <h2 class="section-title reveal">De ce sa ne alegeti?</h2>
+      <p class="section-desc reveal">Suntem dedicati exclusiv sistemelor de climatizare si instalatiilor termice moderne.</p>
+    </div>
+
+    <div class="why-grid">
+      <div class="why-card reveal">
+        <div class="why-card-icon icon-sky">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        </div>
+        <h3>Experienta de peste 10 ani</h3>
+        <p>Specializare solida atat in sisteme casnice standard, cat si in aplicatii industriale complexe.</p>
+      </div>
+      <div class="why-card reveal">
+        <div class="why-card-icon icon-sky">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <h3>Igienizare cu ioni de argint</h3>
+        <p>Utilizam doar substante certificate, concepute pentru distrugerea eficienta a microorganismelor.</p>
+      </div>
+      <div class="why-card reveal">
+        <div class="why-card-icon icon-flame">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        </div>
+        <h3>Interventii curate</h3>
+        <p>Lucram ordonat, protejand peretii si mobilierul din casa sau spatiul dumneavoastra comercial.</p>
+      </div>
+      <div class="why-card reveal">
+        <div class="why-card-icon icon-flame">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        </div>
+        <h3>Zona de acoperire rapida</h3>
+        <p>Localizati strategic in Gheorgeni (Str. Soporului), asiguram timpi rapizi de raspuns in tot Clujul.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Gallery -->
+<section class="section" id="galerie">
+  <div class="section-inner">
+    <div class="section-center">
+      <div class="section-label label-sky reveal">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+        Portofoliu
+      </div>
+      <h2 class="section-title reveal">Din lucrarile noastre</h2>
+      <p class="section-desc reveal">Interventii reale la locuinte si spatii comerciale din Cluj-Napoca.</p>
+    </div>
+
+    <div class="gallery-grid">
+      <div class="gallery-item reveal" onclick="openLightbox(this)">
+        <img src="https://images.unsplash.com/photo-1649711895336-20ff39db62f8?w=800&h=600&fit=crop&q=80" alt="Unitati aer conditionat montate pe perete" loading="lazy">
+        <span class="gallery-caption">Igienizare A.C.</span>
+      </div>
+      <div class="gallery-item reveal" onclick="openLightbox(this)">
+        <img src="https://images.unsplash.com/photo-1585771724684-38269d6639fd?w=800&h=600&fit=crop&q=80" alt="Termostat si sistem de climatizare" loading="lazy">
+        <span class="gallery-caption">Montaj centrala termica</span>
+      </div>
+      <div class="gallery-item reveal" onclick="openLightbox(this)">
+        <img src="https://images.unsplash.com/photo-1610680081567-d4aa2d34cd63?w=800&h=600&fit=crop&q=80" alt="Grila ventilatie aer conditionat" loading="lazy">
+        <span class="gallery-caption">Completare freon</span>
+      </div>
+      <div class="gallery-item reveal" onclick="openLightbox(this)">
+        <img src="https://images.unsplash.com/photo-1631545806609-05fcd3bca0ea?w=800&h=600&fit=crop&q=80" alt="Sistem termic si incalzire" loading="lazy">
+        <span class="gallery-caption">Revizie split</span>
+      </div>
+      <div class="gallery-item reveal" onclick="openLightbox(this)">
+        <img src="https://images.unsplash.com/photo-1634890437712-d312d94107e0?w=800&h=600&fit=crop&q=80" alt="Unitate exterioara aer conditionat" loading="lazy">
+        <span class="gallery-caption">Pompa de caldura</span>
+      </div>
+      <div class="gallery-item reveal" onclick="openLightbox(this)">
+        <img src="https://images.unsplash.com/photo-1659879045021-eeb3fe435ed6?w=800&h=600&fit=crop&q=80" alt="Calorifer si sistem incalzire" loading="lazy">
+        <span class="gallery-caption">Boiler pe lemn</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+  <button class="lightbox-close" aria-label="Inchide">&times;</button>
+  <img id="lightbox-img" src="" alt="">
+</div>
+
+<!-- Reviews -->
+<section class="section reviews-bg" id="recenzii">
+  <div class="section-inner section-center">
+    <div class="section-label label-sky reveal">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+      Pareri clienti
+    </div>
+    <h2 class="section-title reveal">Ce spun clientii nostri</h2>
+    <p class="section-desc reveal">4.9 din 5 — nota medie din peste 150 de recenzii.</p>
+
+    <div class="reviews-grid">
+      <div class="review-card reveal">
+        <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p class="review-text">"A venit in aceeasi zi, a curatat ambele aparate in mai putin de doua ore. Aerul e complet altfel acum, fara mirosul ala de mucegai. Super profesionist."</p>
+        <div class="review-author">
+          <div class="review-avatar av-sky">R</div>
+          <div class="review-author-info">
+            <span class="review-author-name">Radu Moldovan</span>
+            <span class="review-author-meta">Martie 2025 — Igienizare A.C.</span>
+          </div>
+        </div>
+      </div>
+      <div class="review-card reveal">
+        <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p class="review-text">"Am chemat-o pe Csabi pentru centrala care dadea erori. A diagnosticat problema in 15 minute si a rezolvat-o pe loc. Pret corect, fara surprize."</p>
+        <div class="review-author">
+          <div class="review-avatar av-flame">E</div>
+          <div class="review-author-info">
+            <span class="review-author-name">Elena Sandu</span>
+            <span class="review-author-meta">Ianuarie 2025 — Reparatie centrala</span>
+          </div>
+        </div>
+      </div>
+      <div class="review-card reveal">
+        <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p class="review-text">"Igienizare cu ioni de argint — nu stiam ca exista asa ceva. Diferenta se simte imediat, mai ales cand ai copii mici in casa. Recomand cu toata increderea."</p>
+        <div class="review-author">
+          <div class="review-avatar av-sky">A</div>
+          <div class="review-author-info">
+            <span class="review-author-name">Andrei Pop</span>
+            <span class="review-author-meta">Februarie 2025 — Igienizare A.C.</span>
+          </div>
+        </div>
+      </div>
+      <div class="review-card reveal">
+        <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p class="review-text">"Ne-a montat pompa de caldura la casa noua. A explicat tot procesul, ne-a ajutat cu alegerea modelului si a facut o treaba impecabila. Consumul s-a redus vizibil."</p>
+        <div class="review-author">
+          <div class="review-avatar av-flame">M</div>
+          <div class="review-author-info">
+            <span class="review-author-name">Mihaela Rus</span>
+            <span class="review-author-meta">Decembrie 2024 — Pompa de caldura</span>
+          </div>
+        </div>
+      </div>
+      <div class="review-card reveal">
+        <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9734;</div>
+        <p class="review-text">"Completare freon la doua aparate. A venit a doua zi dupa apel, totul a durat circa o ora. Singura observatie: pretul putea fi comunicat mai clar de la inceput."</p>
+        <div class="review-author">
+          <div class="review-avatar av-sky">C</div>
+          <div class="review-author-info">
+            <span class="review-author-name">Cristian Matei</span>
+            <span class="review-author-meta">Aprilie 2025 — Completare freon</span>
+          </div>
+        </div>
+      </div>
+      <div class="review-card reveal">
+        <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p class="review-text">"Lucram cu Csabi de 3 ani pentru biroul nostru. Vine primavara pentru igienizare, toamna pentru revizia centralei. Serios, punctual, de incredere."</p>
+        <div class="review-author">
+          <div class="review-avatar av-flame">D</div>
+          <div class="review-author-info">
+            <span class="review-author-name">Diana Banciu</span>
+            <span class="review-author-meta">Mai 2025 — Mentenanta anuala</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA Banner -->
+<section class="cta-banner">
+  <h2 class="reveal">Protejeaza-ti sanatatea si echipamentele!</h2>
+  <p class="reveal">Planifica acum o revizie sau o igienizare completa. Raspundem prompt la mesaje si apeluri.</p>
+  <a href="https://wa.me/40758552980" class="btn reveal">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347zM12.005 21.79a9.847 9.847 0 0 1-5.031-1.378l-.361-.214-3.741.981.999-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.885-9.885 9.885M20.52 3.449C18.24 1.245 15.24 0 12.045 0 5.463 0 .104 5.334.101 11.892c0 2.096.549 4.14 1.595 5.945L0 24l6.335-1.652a12.062 12.062 0 0 0 5.71 1.447h.006c6.585 0 11.946-5.336 11.949-11.896 0-3.176-1.24-6.165-3.495-8.411"/></svg>
+    Contacteaza-ne pe WhatsApp
   </a>
-  <a href="https://wa.me/40758552980" class="m-wa" target="_blank" rel="noopener">
-    <svg viewBox="0 0 24 24"><path d="M17.6 6.32A8.86 8.86 0 0 0 12.05 4a8.94 8.94 0 0 0-7.74 13.4L3 21l3.7-1.27a8.9 8.9 0 0 0 5.36 1.82H12a8.94 8.94 0 0 0 5.6-15.23z"/></svg>
+</section>
+
+<!-- Contact -->
+<section class="section contact-section" id="contact">
+  <div class="section-inner section-center">
+    <div class="section-label label-sky reveal">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+      Contact
+    </div>
+    <h2 class="section-title reveal">Hai sa vorbim</h2>
+    <p class="section-desc reveal">Raspundem rapid pe orice canal preferi.</p>
+
+    <div class="contact-cards">
+      <a href="tel:+40758552980" class="contact-card reveal">
+        <div class="contact-card-icon icon-sky">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        </div>
+        <div class="contact-card-text">
+          <span class="contact-card-label">Suna-ne direct</span>
+          <span class="contact-card-value">0758 552 980</span>
+        </div>
+      </a>
+      <a href="https://wa.me/40758552980" class="contact-card reveal">
+        <div class="contact-card-icon" style="background: #E8F8EE; color: #25d366;">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347zM12.005 21.79a9.847 9.847 0 0 1-5.031-1.378l-.361-.214-3.741.981.999-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.885-9.885 9.885M20.52 3.449C18.24 1.245 15.24 0 12.045 0 5.463 0 .104 5.334.101 11.892c0 2.096.549 4.14 1.595 5.945L0 24l6.335-1.652a12.062 12.062 0 0 0 5.71 1.447h.006c6.585 0 11.946-5.336 11.949-11.896 0-3.176-1.24-6.165-3.495-8.411"/></svg>
+        </div>
+        <div class="contact-card-text">
+          <span class="contact-card-label">WhatsApp</span>
+          <span class="contact-card-value">Raspuns rapid</span>
+        </div>
+      </a>
+      <a href="https://maps.google.com/?q=Gheorgeni+Soporului+Cluj-Napoca" class="contact-card reveal">
+        <div class="contact-card-icon icon-flame">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        </div>
+        <div class="contact-card-text">
+          <span class="contact-card-label">Locatie</span>
+          <span class="contact-card-value">Gheorgeni, Str. Soporului</span>
+        </div>
+      </a>
+      <div class="contact-card reveal" style="cursor: default;">
+        <div class="contact-card-icon" style="background: var(--flame-mid); color: var(--flame);">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        </div>
+        <div class="contact-card-text">
+          <span class="contact-card-label">Program</span>
+          <span class="contact-card-value">Luni - Sambata, 08:00 - 19:00</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="footer-logo">Clima & Termice Cluj — Csabi</div>
+  <p class="footer-addr">Zona Gheorgeni, Str. Soporului, Cluj-Napoca</p>
+  <div class="footer-divider"></div>
+  <p>&copy; <span id="year"></span> Clima & Termice Cluj. Toate drepturile rezervate.</p>
+</footer>
+
+<!-- Floating WhatsApp -->
+<a href="https://wa.me/40758552980" class="wa-float" aria-label="WhatsApp">
+  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347zM12.005 21.79a9.847 9.847 0 0 1-5.031-1.378l-.361-.214-3.741.981.999-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.885-9.885 9.885M20.52 3.449C18.24 1.245 15.24 0 12.045 0 5.463 0 .104 5.334.101 11.892c0 2.096.549 4.14 1.595 5.945L0 24l6.335-1.652a12.062 12.062 0 0 0 5.71 1.447h.006c6.585 0 11.946-5.336 11.949-11.896 0-3.176-1.24-6.165-3.495-8.411"/></svg>
+</a>
+
+<!-- Mobile CTA bar -->
+<div class="mobile-bar">
+  <a href="tel:+40758552980" class="mb-call">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+    Suna
+  </a>
+  <a href="https://wa.me/40758552980" class="mb-wa">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347zM12.005 21.79a9.847 9.847 0 0 1-5.031-1.378l-.361-.214-3.741.981.999-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.885-9.885 9.885M20.52 3.449C18.24 1.245 15.24 0 12.045 0 5.463 0 .104 5.334.101 11.892c0 2.096.549 4.14 1.595 5.945L0 24l6.335-1.652a12.062 12.062 0 0 0 5.71 1.447h.006c6.585 0 11.946-5.336 11.949-11.896 0-3.176-1.24-6.165-3.495-8.411"/></svg>
     WhatsApp
   </a>
 </div>
 
-<!-- Buton plutitor WhatsApp (Desktop) -->
-<a href="https://wa.me/40758552980" class="float-wa" aria-label="Contact WhatsApp" target="_blank" rel="noopener">
-  <svg viewBox="0 0 24 24"><path d="M17.6 6.32A8.86 8.86 0 0 0 12.05 4a8.94 8.94 0 0 0-7.74 13.4L3 21l3.7-1.27a8.9 8.9 0 0 0 5.36 1.82H12a8.94 8.94 0 0 0 5.6-15.23zm-5.55 13.7a7.4 7.4 0 0 1-4.06-1.2 l-.29-.17-2.2.75.74-2.14-.19-.29a7.42 7.42 0 0 1 11.7-9.04 7.36 7.36 0 0 1 2.18 5.25 7.43 7.43 0 0 1-7.88 6.84zm4.06-5.56c-.22-.11-1.31-.65-1.52-.72-.2-.08-.35-.11-.5.11-.15.21-.57.72-.7.86-.13.15-.26.16-.48.05a6.06 6.06 0 0 1-1.77-1.1 6.6 6.6 0 0 1-1.22-1.51c-.13-.22 0-.34.12-.46.11-.11.25-.29.37-.43.13-.15.17-.25.25-.42.08-.17.04-.31-.04-.43-.08-.11-.5-1.2-.69-1.65-.18-.43-.37-.37-.5-.38h-.43c-.15 0-.39.06-.6.29-.2.22-.78.76-.78 1.85s.8 2.14.91 2.29c.11.15 1.55 2.37 3.76 3.23 2.21.86 2.21.57 2.61.54.4-.04 1.31-.54 1.49-1.06.18-.51.18-.95.13-1.05-.06-.1-.22-.16-.44-.27z"/></svg>
-</a>
-
-<section class="hero">
-  <nav class="nav">
-    <a href="#" class="nav-brand">ClimaTermic<span>Cluj</span></a>
-    <a href="tel:+40758552980" class="nav-btn">Gheorgeni - Sopor</a>
-  </nav>
-
-  <div class="hero-bg"></div>
-
-  <div class="hero-content">
-    <span class="hero-eyebrow">Peste 10 Ani Experiență</span>
-    <h1>Igienizare, Revizii Clima & Instalații Termice</h1>
-    <p class="hero-motto">Servicii specializate de curățare profesională A.C., încărcare freon și mentenanță sisteme de încălzire în Cluj-Napoca.</p>
-    <div class="hero-ctas">
-      <a href="https://wa.me/40758552980" class="btn btn-wa" target="_blank" rel="noopener">WhatsApp Direct</a>
-      <a href="tel:+40758552980" class="btn btn-outline">Apel Solicitări</a>
-    </div>
-  </div>
-</section>
-
-<section class="about">
-  <div class="about-inner reveal">
-    <span class="about-badge">Respiră aer curat și sănătos</span>
-    <h2>Soluții Profesionale pentru Locuințe și Birouri</h2>
-    <p class="about-text">Suntem dedicați exclusiv sistemelor de climatizare casnice și industriale, precum și instalațiilor termice moderne. Folosim soluții avansate cu ioni de argint și echipamente de ultimă generație pentru a elimina bacteriile, praful și mucegaiul, asigurând performanța optimă a echipamentelor tale.</p>
-  </div>
-</section>
-
-<section class="services" id="servicii">
-  <div class="section-head reveal">
-    <span class="eyebrow">Domenii de Expertiză</span>
-    <h2>Servicii Complete</h2>
-    <p>Intervenții rapide, curate și executate corect în Cluj-Napoca și zonele limitrofe.</p>
-  </div>
-  
-  <div class="services-grid reveal reveal-stagger">
-    <div class="svc-card">
-      <h3>Sisteme Aer Condiționat</h3>
-      <ul class="svc-list">
-        <li>Revizie completă și diagnosticare sistem A.C.</li>
-        <li>Curățare profesională profundă (ioni de argint)</li>
-        <li>Eliminare bacterii, mucegai și mirosuri neplăcute</li>
-        <li>Completare agent frigorific (orice tip de freon)</li>
-        <li>Verificare traseu frigorific și instalație electrică</li>
-      </ul>
-    </div>
-
-    <div class="svc-card">
-      <h3>Instalații Termice</h3>
-      <ul class="svc-list">
-        <li>Montaj și reparații centrale termice</li>
-        <li>Verificări tehnice periodice și revizii</li>
-        <li>Montaj sisteme pe bază de pompe de căldură</li>
-        <li>Instalare și mentenanță centrale / boilere pe lemn</li>
-        <li>Optimizare consum și randament termic</li>
-      </ul>
-    </div>
-  </div>
-</section>
-
-<section class="benefits">
-  <div class="section-head reveal">
-    <span class="eyebrow">Angajamentul Nostru</span>
-    <h2>De ce să ne alegeți?</h2>
-  </div>
-  <div class="benefits-grid reveal reveal-stagger">
-    <div class="benefit-card">
-      <h4>Experiență de >10 Ani</h4>
-      <p>Specializare solidă atât în sisteme casnice standard, cât și în aplicații industriale complexe.</p>
-    </div>
-    <div class="benefit-card">
-      <h4>Igienizare cu Ioni de Argint</h4>
-      <p>Utilizăm doar substanțe certificate, special concepute pentru distrugerea eficientă a microorganismelor.</p>
-    </div>
-    <div class="benefit-card">
-      <h4>Intervenții Curate</h4>
-      <p>Lucrăm ordonat, protejând pereții și mobilierul din casa sau spațiul dumneavoastră comercial.</p>
-    </div>
-    <div class="benefit-card">
-      <h4>Zonă de Acoperire</h4>
-      <p>Localizați strategic în Gheorgeni (str. Soporului), asigurăm timpi rapizi de răspuns în tot Clujul.</p>
-    </div>
-  </div>
-</section>
-
-<section class="cta" id="contact">
-  <h2 class="reveal">Protejează-ți sănătatea și echipamentele!</h2>
-  <p class="cta-sub reveal">Planifică acum o revizie sau o igienizare completă. Răspundem prompt la mesaje și apeluri.</p>
-  
-  <div class="cta-actions reveal">
-    <a href="https://wa.me/40758552980" class="btn btn-wa" target="_blank" rel="noopener">Contact direct pe WhatsApp</a>
-  </div>
-</section>
-
-<footer>
-  <p><strong>Clima & Termice Cluj — Csabi</strong></p>
-  <p style="margin-top: 0.3rem;">Zona Gheorgeni, Str. Soporului &bull; <a href="tel:+40758552980" style="color: #fff; font-weight: 600;">0758 855 2980</a></p>
-  <p style="margin-top: 1.5rem; font-size: 0.75rem; opacity: 0.5;">&copy; Toate drepturile rezervate.</p>
-</footer>
-
 <script>
-(function () {
-  function hideLoader() {
-    var el = document.getElementById('loader');
-    if (el) el.classList.add('hidden');
-  }
-  if (document.readyState === 'complete' || document.readyState === 'interactive') {
-    setTimeout(hideLoader, 50);
-  } else {
-    window.addEventListener('DOMContentLoaded', function () { setTimeout(hideLoader, 50); });
-  }
+document.getElementById('year').textContent = new Date().getFullYear();
 
-  var els = document.querySelectorAll('.reveal');
-  if (!('IntersectionObserver' in window)) {
-    els.forEach(function (el) { el.classList.add('is-visible'); });
-    return;
-  }
-  var obs = new IntersectionObserver(function (entries) {
-    entries.forEach(function (entry) {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('is-visible');
-        obs.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.06, rootMargin: '0px 0px -15px 0px' });
-  
-  els.forEach(function (el) { obs.observe(el); });
-})();
+// Nav scroll
+const nav = document.getElementById('mainNav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 40);
+});
+
+// Hamburger
+const hamburger = document.getElementById('hamburger');
+const navLinks = document.getElementById('navLinks');
+hamburger.addEventListener('click', () => {
+  hamburger.classList.toggle('open');
+  navLinks.classList.toggle('open');
+});
+navLinks.querySelectorAll('a').forEach(a => {
+  a.addEventListener('click', () => {
+    hamburger.classList.remove('open');
+    navLinks.classList.remove('open');
+  });
+});
+
+// GSAP
+gsap.registerPlugin(ScrollTrigger);
+gsap.utils.toArray('.reveal').forEach(el => {
+  gsap.fromTo(el,
+    { opacity: 0, y: 28 },
+    { opacity: 1, y: 0, duration: 0.65, ease: 'power3.out',
+      scrollTrigger: { trigger: el, start: 'top 88%' } }
+  );
+});
+
+// Lightbox (for when real photos are added)
+function openLightbox(el) {
+  const img = el.querySelector('img');
+  if (!img) return;
+  document.getElementById('lightbox-img').src = img.src;
+  document.getElementById('lightbox').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeLightbox() {
+  document.getElementById('lightbox').classList.remove('open');
+  document.body.style.overflow = '';
+}
 </script>
+
 </body>
 </html>
